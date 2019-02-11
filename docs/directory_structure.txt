@@ -1,0 +1,43 @@
+===============================================================================
+DIRECTORY STRUCTURE
+===============================================================================
+
+The structure of this repo is like this:
+
+	/res/
+			Contains publicly-accessible resources (CSS, etc),
+			and themes.
+	/res/img/
+			Contains uploaded images.
+	/res/themes/
+			Contains all themes (collections of CSS, images, and
+			templates).
+	/res/themes/default/
+			The theme we're gonna develop and use.
+	/res/themes/default/css/
+			CSS for the default theme.
+	/res/themes/default/templates/
+			Templates for the default theme (our HTML).
+
+	--------------------
+
+	/lib/
+			Contains PHP files that should be included into every
+			PHP file.
+	/lib/ext/
+			Contains external PHP libraries.
+
+	--------------------
+
+	/public/
+			The webroot.
+			Contains small, bare PHP files that render webpages.
+			Any requests for "/public/res/" will be rediricted by
+			the webserver to "/res/".
+	/public/*/private/
+			PHP files for processing input (I.E., user submits
+			a blog)-- everything in */private/ should redirect
+			to something in a corresponding */results/ file.
+	/public/*/results/
+			PHP files for displaying results of processed input
+			(I.E., "wow, that's an error" or "hooray, it worked")

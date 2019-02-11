@@ -1,0 +1,18 @@
+===============================================================================
+TWIG TEMPLATING SYSTEM
+===============================================================================
+Twig is a system for writing HTML "templates"-- HTML snippets that can have
+variable names in it, which PHP will interpret and replace with the values.
+
+We're gonna be using Twig, since it's really useful.
+
+If you're front-end, writing HTML, look at `./twig_example.html` for a general
+example of how you'll use Twig.
+You can alo read `https://twig.symfony.com/doc/2.x/templates.html` if you want
+more in-depth documentation, but you probably don't need it.
+
+If you're back-end, writing PHP, look at
+`https://twig.symfony.com/doc/2.x/api.html`.
+
+
+Look at `variables.txt` for a list of the variables we'll be using.

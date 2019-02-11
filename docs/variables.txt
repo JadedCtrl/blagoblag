@@ -1,0 +1,83 @@
+===============================================================================
+VARIABLE LIST
+===============================================================================
+
+GLOBAL
+----------------------------------------
+There are a few variables that will always be avaiable to use-- these are what
+you can use in any page's template:
+
+	* users[number]
+			A numbered array of all users that can create posts
+	* user['name']['string']
+			An array indexed by a username (string), with a
+			sub-list containing data on a user. 'string' can be
+			one of the following:
+				* 'full_name'
+				* 'bio'
+				* 'email'
+				* 'posts'
+			'posts' is special, because it actually will be another
+			array that lists the post IDs of a users posts in
+			order of newest to oldest.
+			So for Andre's latest post:
+				user['andre']['posts'][0]
+			For his second-newest: 
+				user['andre']['posts'][1]
+			For Andre's full name:
+				user['andre']['full_name']
+	* posts[number]
+			A list of post IDs, in order from newest to oldest.
+			So the newest post ID would be posts[0].
+	* post[number]['string']
+			All blogpost data will be stored in this array-- the
+			number is the ID (number assigned to a post when
+			created) and 'string' is one of the following:
+				* 'title'
+				* 'date'
+				* 'author'
+				* 'text'
+			For example, to get the title of post #345:
+				post[345]['title']
+			and it's text:
+				post[345]['text']
+			So on and so forth.
+
+Example:
+	To get the text of the newest post by Kaleb, do:
+		post[user['kaleb']['posts'][0]]['text']
+
+	Since userposts[] lists a user's posts in ascending order, the newest
+	is '0', and since user['kaleb']['posts'][0] would contain the ID of his
+	newest post, we just use that as the post ID, and boom.
+
+
+
+LOCAL
+----------------------------------------
+These are variables that can only be used in specific contexts, on a per-page
+basis.
+
+USER
+--------------------
+	* username
+		The user's username
+	* full_name
+		The user's fullname
+	* bio
+		The user's bio
+	* email
+		The user's email
+	* posts
+		A list of the user's posts (IDs) from newest to oldest
+
+POST
+--------------------
+	* author
+		The post's author (username)
+	* date
+		The post's publishing date
+	* id
+		The post's id
+	* text
+		The post's text

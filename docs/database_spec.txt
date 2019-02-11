@@ -1,0 +1,24 @@
+===============================================================================
+DATABASE SPEC
+===============================================================================
+
+We use `dbi4php` (/lib/ext/dbi4php/) for database access, so that we don't
+have to rely on a specific DB.
+
+Anything supported by DBI (MySQL, MS SQL, Oracles, PostgreSQL, ODBC, Interbase,
+SQLite, IBM DB2) will work just fine.
+
+The database name will be fetched from the "config.ini" file-- and a table
+will be automatically created as necessary.
+
+The tables used by Blagoblag are:
+
+	posts (title varchar(200), date datetime, author smallint,
+		text longtext)
+
+	authors (id smallint primary key, username varchar(20),
+		password_hash varchar(30), full_name varchar(50))
+
+	comments (id smallint primary key, displayname varchar(20),
+		text shorttext, date datetime)
+

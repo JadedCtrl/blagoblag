@@ -1,0 +1,23 @@
+===============================================================================
+FRONT-END
+===============================================================================
+There are 6 different pages/views we need to work on:
+
+	* INDEX/OVERVIEW
+		A page for showing a general overview of the site-- newest
+		posts overall.
+	* USER
+		A page dedicated to a given user, with their name, biography,
+		(maybe a picture? <3) and some of their recent psots.
+	* POST
+		A page dedicated to displaying a single article. Should list
+		the author, date, and text. Y'know, jazz like that.
+	* ABOUT
+		An about page, that talks about what this thing is.
+
+	* NAVBAR
+		A top-bar/side-bar for navigation that will be shown on every
+		page in the site.
+	* FOOTER
+		A bottom-bar/footer that has whatever legal/boring/contact-us
+		stuff we want to put in it.

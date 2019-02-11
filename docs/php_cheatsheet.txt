@@ -1,0 +1,114 @@
+===============================================================================
+A PHP CHEAT-SHEET
+===============================================================================
+
+----------------------------------------
+SYNTAX
+----------------------------------------
+All PHP code must be between "<?php" and "?>":
+	<?php
+		echo "Like this.";
+	?>
+
+Every statement ends with a semicolon, all function arguments
+are seperated by commas, etc.
+
+
+----------------------------------------
+OPERATORS
+----------------------------------------
+Normal stuff (like +, -, etc.), but *also*:
+	.	concatenation (mainly for strings, like "a" . "b" ... "ab")
+	++	increment (add one, I.E. 1++ ... 2)
+	--	decrement (subtract one, I.E. 2-- ... 1)
+
+
+----------------------------------------
+COMPARISON OPERATORS
+----------------------------------------
+	==	equal (same data)
+	===	identical (same type + data)
+	!=	not-equal (different data)
+	!==	not-identicial (different type or data)
+	<	less-than
+	>	greater-than
+	<=	less-than or equal-to
+	>=	greater-than or equal-to
+	??	null coalescing (choose first variable that's non-null,
+		from left to right)
+
+----------------------------------------
+VARIABLES
+----------------------------------------
+All variables start like "$". Assignment is like this:
+
+	$variable = "value";
+
+
+----------------------------------------
+FUNCTIONS
+----------------------------------------
+Make a function like a lot of languages:
+
+	function FUNCTION_NAME($ARGUMENT, $ARGUMENT) {
+		BLAH BLAH BLAH;
+		return BLAH;
+	}
+
+... replace FUNCTION_NAME with the name, $ARGUMENT with a variable name,
+etc. etc.
+
+If you want an argument to be optional, assign it a default value, like:
+
+	function FUNCTION_NAME($ARGUMENT = "default", $ARGUMENT = 2) {
+
+
+----------------------------------------
+ARRAYS
+----------------------------------------
+Make an array with 
+
+	array(KEY=>VALUE, KEY=>VALUE);
+
+VARIABLE can be a string or a number.
+
+Get an array value like
+
+	$array[KEY]
+
+
+----------------------------------------
+GLOBAL VARIABLES
+----------------------------------------
+There are some important global variables--
+
+	$GET    	Hosts all GET data.
+	$POST   	All POST data
+	$SERVER  	SERVER data
+	$GLOBALS	Contains all global vars.
+
+They're all arrays.
+Variables are local to their function-- and often, global variables from
+certain functions won't be accessible in the global scope of another.
+
+To reliably access (inter-file) globals, access them like values in an
+array of $GLOBALS
+
+	$GLOBALS[KEY]
+
+
+----------------------------------------
+ETC.
+----------------------------------------
+Really, most of PHP is really similar to other languages.
+You should be able to read it pretty easily-- if there's something
+you don't quite get, you can use the Wikibook
+
+	https://en.wikibooks.org/wiki/PHP_Programming/
+
+For quick reference. And for function definitions/examples, check the
+PHP documentation
+
+	https://secure.php.net/docs.php
+
+Also Google loves you <3
