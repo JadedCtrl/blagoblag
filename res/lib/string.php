@@ -8,21 +8,21 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
-$depth = "";
-$title = "About";
-include "res/lib/load.php";
 
+// VARYING --> STRING
+// If a given variable is a string, wrap it with apostrophes.
+// Otherwise, just return it as given.
+function string_wrap($value) {
+	if (is_string($value)) {
+		return "'" . $value . "'";
+	} else {
+		return $value;
+	}
+}
 
-echo $GLOBALS['twig']->render('head.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth,
-				 'title' =>$title]);
-
-echo $GLOBALS['twig']->render('index.twig.html',
-				 ['animal'=> "cat"]);
-
-echo $GLOBALS['twig']->render('foot.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth]);
-
+// ARRAY --> ARRAY
+// 'Wrap' all strings in array with apostrophes.
+function strings_wrap($array) {
+	return array_map("string_wrap", $array);
+}
 ?>

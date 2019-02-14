@@ -8,21 +8,23 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
-$depth = "";
-$title = "About";
-include "res/lib/load.php";
 
+// ARRAY -- > STRING
+// Turn a 1D array into a comma-seperated string
+function comma_sep($array) {
+	global $stack;
+	$stack = "";
 
-echo $GLOBALS['twig']->render('head.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth,
-				 'title' =>$title]);
+	$comma_print = function($item) {
+		$GLOBALS['stack'] = $GLOBALS['stack']
+					. ", " . $item;
+	};
 
-echo $GLOBALS['twig']->render('index.twig.html',
-				 ['animal'=> "cat"]);
+	array_map($comma_print, $array);
 
-echo $GLOBALS['twig']->render('foot.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth]);
+	$stack = preg_replace('/^, /', '', $stack);
+
+	return $stack;
+}
 
 ?>

@@ -1,0 +1,14 @@
+<?php
+$db_type = "mysql";
+$db_host = "host=localhost;";
+$db_port = "port=3306;";
+$db_socket = "socket=/var/run/mysql/mysql.sock;";
+$db_args = array();
+
+$db_name = "dbname=blagoblag;";
+$db_user = "USERNAME";
+$db_pass = "PASSWORD";
+
+
+$theme   = "default";
+?>

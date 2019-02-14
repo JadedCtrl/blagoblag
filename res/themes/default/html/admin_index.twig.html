@@ -1,0 +1,37 @@
+<section id="creation">
+	<form id="user_creation" action="private/user_create.php" method="post">
+		<p><label>User ID</label><input name="id" type="number" /></p>
+		<p><label>Full Name</label><input name="full_name" type="text"/>
+		</p>
+		<p><label>Biography</label><input name="bio" type="text" />
+		</p>
+		<p><label>E-mail</label><input name="email" type="email" /></p>
+		<p><label>Website</label><input name="url" type="url" /></p>
+
+		<hr />
+
+		<p><label>Username</label><input name="name" type="text" /></p>
+		<p><label>Password</label>
+			<input name="password" type="password" />
+			</p>
+
+		<hr />
+
+		<p><label>Login Group</label>
+			<select name="login">
+				<option value="contributor">Contributor</option>
+				<option value="spectator">Spectator</option>
+				<option value="admin">Admin</option>
+				<option value="wizard">Wizard</option>
+			</select>
+		</p>
+		<p><input type="submit" /></p>
+	</form>
+</section>
+
+<section id="destruction">
+	<form action="private/user_delete.php" method="post">
+	</form>
+	<form action="private/post_delete.php" method="post">
+	</form>
+</section>
