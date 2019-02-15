@@ -12,18 +12,8 @@ $title = "Control Panel";
 $depth = "../";
 include "../res/lib/load.php";
 
-echo $GLOBALS['twig']->render('head.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth,
-				 'title' =>$title]);
+// --------------------------------------
 
-
-echo $GLOBALS['twig']->render('admin_index.twig.html', []);
-
-echo $GLOBALS['twig']->render('foot.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth]);
-
-
+display_page("admin_index.twig.html", $depth, $title);
 
 ?>

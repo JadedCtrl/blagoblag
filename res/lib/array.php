@@ -11,20 +11,35 @@
 
 // ARRAY -- > STRING
 // Turn a 1D array into a comma-seperated string
-function comma_sep($array) {
+function comma_sep($array, $seperator=", ") {
+	global $string;
+	$string = $seperator;
 	global $stack;
 	$stack = "";
 
 	$comma_print = function($item) {
 		$GLOBALS['stack'] = $GLOBALS['stack']
-					. ", " . $item;
+					. $GLOBALS['string'] . $item;
 	};
 
 	array_map($comma_print, $array);
 
-	$stack = preg_replace('/^, /', '', $stack);
+	$stack = preg_replace('/^' . $string . '/', '', $stack);
 
 	return $stack;
+}
+
+
+// STRING STRING [ARRAY] --> ARRAY
+// Return exports for Twig-- with the required global & local exports,
+// along with any optional local ones.
+function make_exports($depth, $title, $local = array()) {
+	$exports = $GLOBALS['twig_exports'];
+
+	$exports['depth'] = $depth;
+	$exports['title'] = $title;
+
+	return array_merge($exports, $local);
 }
 
 ?>

@@ -25,4 +25,12 @@ function input_error($string) {
 	exit;
 }
 
+// STRING --> NIL
+// Print out a general error, with $string as it's error-message.
+function perm_error($string) {
+	echo $GLOBALS['twig']->render('error.twig.html',
+					['error_message'=>$string]);
+	exit;
+}
+
 ?>

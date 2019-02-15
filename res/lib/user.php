@@ -28,14 +28,20 @@ function user_set($id, $variable, $new_value) {
 
 // NUMBER STRING STRING [STRING STRING STRING STRING STRING] --> BOOLEAN
 // Create a user of the given specification.
-function user_create($id, $name, $password, $login="Spectator",
+function user_create($id, $name, $password, $class="Spectator",
                         $full_name=NULL,  $email=NULL, $url=NULL, $bio=NULL) {
 
 	return db_insert_row("lusers",
-			array("id", "username", "password_hash", "login",
+			array("id", "username", "hash", "class",
 				"full_name", "email", "website", "biography"),
-			array($id, $name, $password, $login,
+			array($id, $name, $password, $class,
 				$full_name, $email, $url, $bio));
+}
+
+// NUMBER --> BOOLEAN
+// Delete a user by their ID.
+function user_delete($id) {
+	return db_cmd("delete from lusers where id = " . $id);
 }
 
 
@@ -51,7 +57,7 @@ function user_id_to_name($id) {
 // STRING --> NUMBER
 // Get a user's ID from username. 
 function user_name_to_id($username) {
-	return db_get_cell("lusers", "username", $username, "id");
+	return db_get_cell("lusers", "username", string_wrap($username), "id");
 }
 
 
@@ -61,13 +67,13 @@ function user_name_to_id($username) {
 // NUMBER --> STRING
 // Return a username from a user-ID
 function user_name($id) {
-	return user_id_to_name($id, "username");
+	return user_id_to_name($id);
 }
 
 // NUMBER --> STRING
 // Return a user's login-class from ID
-function user_login($id) {
-	return user_get($id, "login");
+function user_class($id) {
+	return user_get($id, "class");
 }
 
 // NUMBER --> STRING
@@ -96,10 +102,46 @@ function user_biography($id) {
 
 // -------------------------------------
 
+
+// NUMBER --> ARRAY
+// Fetch an array of a user's IDs
+function user_ids() {
+	return db_get_columns("lusers", "id");
+}
+
+
+// -------------------------------------
+
+
 // NUMBER --> ARRAY
 // Fetch an array of a user's posts (by ID)
-function user_posts($user_id) {
-	return db_get_cell("posts", "user", $user_id, "id");
+function user_posts($id) {
+	return db_get_cell("posts", "user", $id, "id");
+}
+
+
+// -------------------------------------
+
+
+// NUMBER --> ARRAY
+// Return an array filled with all of a user's relevant data.
+function user_data($id) {
+	return array('full_name' => user_full_name($id),
+			'name' => user_name($id),
+			'bio' => user_biography($id),
+			'email' => user_email($id),
+			'website' => user_website($id),
+			'posts' => user_posts($id));
+}
+			
+
+// -------------------------------------
+
+
+// NUMBER STRING --> BOOLEAN
+// Return whether or not a given password is valid.
+function user_valid_password($id, $password) {
+	return password_verify($password, user_get($id, "hash"));
 }
 
 ?>

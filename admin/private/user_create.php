@@ -11,7 +11,11 @@
 $depth = "../../";
 include "../../res/lib/load.php";
 
-$id = $_POST['id'];
+$auth_user = $_POST['auth_user'];
+$auth_pass = $_POST['auth_pass'];
+$auth_user_id = user_name_to_id($auth_user);
+
+$id = intval($_POST['id']);
 $name = $_POST['name'];
 $full_name = $_POST['full_name'];
 $bio = $_POST['bio'];
@@ -19,26 +23,31 @@ $email = $_POST['email'];
 $url = $_POST['url'];
 $password = $_POST['password'];
 $login = $_POST['login'];
+$password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 11));
+
+// -------------------------------------
+
+auth_enforce($auth_user_id, $auth_pass,
+	array("wizard", "archmage"), "make accounts");
 
 $invalid = input_enforce(array($id, $name, $full_name, $bio, $email, $url,
 			$password, $login),
-		  array("ID", "username", "full name", "biography", "email",
-		  	"url", "password", "login"),
-		  array("int", "string", "string", "string", "email",
-		  	"url", "password",
-				array("contributor", "spectator", "wizard",
-					"admin")));
+		  array("ID", "Username", "Full name", "Biography", "E-mail",
+		  	"URL", "Password", "Login class"),
+		  array("free_user_id", "free_user_name", "string", "string",
+		  	"email", "url", "ne_string",
+			array("spectator", "wizard", "archmage",
+				"contributor")));
 
-if (!is_bool($invalid)) {
-	input_error("Some input is invalid: " . $invalid);
+if (!empty($invalid)) {
+	input_error("Some input is invalid: " . comma_sep($invalid));
 }
 
-$result = user_create($id, $name, $password, $login,
-			$full_name,  $email, $url, $bio);
-if ($result) {
-	header('Location: http://localhost/blagoblag/user.php?id=' . $id);
-} else {
-	general_error("<em>Something</em> went wrong.");
-}
+// -------------------------------------
+
+user_create($id, $name, $password, $login,
+		$full_name,  $email, $url, $bio);
+
+root_redirect("user.php?name=" . $name);
 
 ?>

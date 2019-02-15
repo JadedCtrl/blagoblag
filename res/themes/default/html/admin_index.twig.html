@@ -1,5 +1,17 @@
 <section id="creation">
 	<form id="user_creation" action="private/user_create.php" method="post">
+
+		<section id="authentication">
+		<p><label>Your Username</label>
+			<input name="auth_user" type="text" />
+		</p>
+		<p><label>Your Password</label>
+			<input name="auth_pass" type="text">
+		</p>	
+		
+		<hr />
+
+		<section id="user_details">
 		<p><label>User ID</label><input name="id" type="number" /></p>
 		<p><label>Full Name</label><input name="full_name" type="text"/>
 		</p>
@@ -17,21 +29,46 @@
 
 		<hr />
 
+
 		<p><label>Login Group</label>
 			<select name="login">
 				<option value="contributor">Contributor</option>
 				<option value="spectator">Spectator</option>
-				<option value="admin">Admin</option>
 				<option value="wizard">Wizard</option>
+				<option value="archmage">Archmage</option>
 			</select>
 		</p>
+		</section>
 		<p><input type="submit" /></p>
 	</form>
 </section>
 
+<hr />
+
 <section id="destruction">
-	<form action="private/user_delete.php" method="post">
-	</form>
-	<form action="private/post_delete.php" method="post">
+	<form id="user_destruction" action="private/user_destroy.php"
+		method="post">
+
+		<section id="authentication">
+		<p><label>Your Username</label>
+			<input name="auth_user" type="text" />
+		</p>
+		<p><label>Your Password</label>
+			<input name="auth_pass" type="text">
+		</p>	
+		</section>
+		
+		<hr />
+
+		<p><label>Target</label>
+			<select name="id">
+				{% for id in users %}
+				<option value="{{ id }}">
+					{{ user[id]['full_name'] }}
+				</option>
+				{% endfor %}
+			</select>
+		</p>
+		<p><input type="submit" /></p>
 	</form>
 </section>

@@ -12,22 +12,8 @@ $depth = "";
 $title = "";
 include "res/lib/load.php";
 
-// global variable declaration
-$users = user_ids();
-$user = array_map(user_data, $users);
-$posts = post_ids();
-$post = array_map(post_data, $posts);
+// -------------------------------------
 
-echo $GLOBALS['twig']->render('head.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth,
-				 'title' =>$title]);
-
-echo $GLOBALS['twig']->render('index.twig.html', []);
-
-
-echo $GLOBALS['twig']->render('foot.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth]);
+display_page("index.twig.html", $depth, $title);
 
 ?>

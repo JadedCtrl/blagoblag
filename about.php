@@ -12,17 +12,8 @@ $depth = "";
 $title = "About";
 include "res/lib/load.php";
 
+// ------------------------------------
 
-echo $GLOBALS['twig']->render('head.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth,
-				 'title' =>$title]);
-
-echo $GLOBALS['twig']->render('index.twig.html',
-				 ['animal'=> "cat"]);
-
-echo $GLOBALS['twig']->render('foot.twig.html',
-				['theme' => $GLOBALS['theme'],
-				 'depth' => $depth]);
+display_page("about.twig.html", $depth, $title);
 
 ?>

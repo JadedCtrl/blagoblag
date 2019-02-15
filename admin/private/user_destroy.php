@@ -8,22 +8,30 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
-$depth = "";
-$title = "";
-include "res/lib/load.php";
+$depth = "../../";
+include "../../res/lib/load.php";
+
+$auth_user = $_POST['auth_user'];
+$auth_pass = $_POST['auth_pass'];
+$auth_user_id = user_name_to_id($auth_user);
+
+$id = intval($_POST['id']);
 
 // -------------------------------------
 
-$id = $_GET['id'];
-$text = post_text($id);
-$author = post_author($id);
-$date = post_data($id);
+auth_enforce($auth_user_id, $auth_pass,
+	array("wizard", "archmage"), "destroy users");
 
-$local_exports = array('id' => $id, 'text' => $text, 'author' => $author,
-			'data' => $data);
+$invalid = input_enforce(array($id), array("ID"), array("user_id"));
+
+if (!empty($invalid)) {
+	input_error("Some input is invalid: " . comma_sep($invalid));
+}
 
 // -------------------------------------
 
-display_page("post.twig.html", $depth, $title, $local_exports);
+user_delete($id);
+
+root_redirect("user.php?name=" . $name);
 
 ?>

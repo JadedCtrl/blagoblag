@@ -30,8 +30,8 @@ if (!db_table_existant("lusers")) {
 	db_create_table("lusers",
 		array("id int primary key","username varchar(20)",
 		"biography longtext","email varchar(50)","website varchar(50)",
-		"password_hash varchar(80)","full_name varchar(50)",
-		"login varchar(20)")); }
+		"hash char(60)","full_name varchar(50)",
+		"class varchar(20)")); }
 
 if (!db_table_existant("posts")) {
 	db_create_table("posts",
@@ -51,10 +51,12 @@ if (!db_table_existant("comments")) {
 // Execute a DB command
 function db_cmd($query) {
 	$stmt = $GLOBALS['pdo']->query($query);
+	$stack = array();
+
 	if (is_bool($stmt)) {
 		return $stmt;
 	} else {
-		return $stmt->fetch();
+		return $stmt->fetchAll();
 	}
 }
 
@@ -63,7 +65,17 @@ function db_cmd($query) {
 // STRING STRING --> ARRAY
 // Return all values of a specific column
 function db_get_columns($table, $column) {
-	return db_cmd("select " . $column . " from " . $table);
+	$result = db_cmd("select " . $column . " from " . $table);
+
+	$result_nest = function($array) {
+				return $array[0];
+			};
+
+	if (is_array($result)) {
+		return array_map($result_nest, $result);
+	} else {
+		return $result;
+	}
 }	
 
 // STRING STRING VARYING --> ARRAY
@@ -77,7 +89,7 @@ function db_get_rows($table, $identifier, $value) {
 // Return the value of a specific column in a given row, identified by an
 // 'identifier' column set to the given value
 function db_get_cell($table, $identifier, $value, $cell) {
-	return db_get_rows($table, $identifier, $value)[$cell];
+	return db_get_rows($table, $identifier, $value)[0][$cell];
 }
 
 // --------------------------------------
