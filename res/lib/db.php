@@ -1,7 +1,7 @@
 <?php
 /* This file is free software: you can redistribute it and/or modify
-   it under the terms of version 3 of the GNU Affero General Public                     License as published by the Free Software Foundation.
-
+   it under the terms of version 3 of the GNU Affero General Public
+   License as published by the Free Software Foundation.
    This file is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -31,12 +31,20 @@ if (!db_table_existant("lusers")) {
 		array("id int primary key","username varchar(20)",
 		"biography longtext","email varchar(50)","website varchar(50)",
 		"hash char(60)","full_name varchar(50)",
-		"class varchar(20)")); }
+		"class varchar(20)")); 
+
+	user_create("root", "password", "archmage", "Sorĉistino Root",
+			"jadedctrl@teknik.io",
+			"https://git.eunichx.us/blagoblag.git",
+			"Use my account (password is `password`) to create your
+			own archmage account-- then DELETE ME. I am a security
+			risk that should be destroyed ASAP.");
+}
 
 if (!db_table_existant("posts")) {
 	db_create_table("posts",
-		array("id int primary key","title varchar(200)","date datetime",
-		"user int","text longtext")); }
+		array("id int primary key","title varchar(50)","date datetime",
+		"description varchar(250)", "user int","text longtext")); }
 
 if (!db_table_existant("comments")) {
 	db_create_table("comments",
@@ -64,8 +72,26 @@ function db_cmd($query) {
 
 // STRING STRING --> ARRAY
 // Return all values of a specific column
-function db_get_columns($table, $column) {
-	$result = db_cmd("select " . $column . " from " . $table);
+function db_get_columns($table, $column,
+			$order = null, $ordered = null, $max = null) {
+
+	$command = "select " . $column . " from " . $table;
+
+	if (is_string($ordered)) {
+		$command = $command . " order by " . $ordered . " " . $order;
+	} else {
+		$command = $command . " order by " . $column . " " .  $order;
+	}
+
+	if (is_int($max)) {
+		$command = $command . " limit 0," . $max;
+	}
+
+	$command = $command . ";";
+
+	// -----------------	
+
+	$result = db_cmd($command);
 
 	$result_nest = function($array) {
 				return $array[0];
@@ -76,7 +102,7 @@ function db_get_columns($table, $column) {
 	} else {
 		return $result;
 	}
-}	
+}
 
 // STRING STRING VARYING --> ARRAY
 // Return all rows that have an 'identifier' column set to given value
@@ -90,6 +116,21 @@ function db_get_rows($table, $identifier, $value) {
 // 'identifier' column set to the given value
 function db_get_cell($table, $identifier, $value, $cell) {
 	return db_get_rows($table, $identifier, $value)[0][$cell];
+}
+
+// !!!
+// !!! ['id'] is used instead of $cell !!!
+// STRING STRING VARYING STRING --> ARRAY
+// Return the value of a specific column in a given row, identified by an
+// 'identifier' column set to the given value
+function db_get_cells($table, $identifier, $value, $cell) {
+	$id_pop = function ($row, $cell) {
+			return $row['id'];
+		};
+
+	$rows = db_get_rows($table, $identifier, $value);
+
+	return array_map($id_pop, $rows, $cell);
 }
 
 // --------------------------------------
@@ -107,14 +148,42 @@ function db_set_cell($table, $identifier, $value, $cell, $new_value) {
 
 // -------------------------------------
 
+// STRING STRING --> VARYING
+// Return the 'biggest' value in a column, as dictated by 'desc' ordering
+function db_get_biggest($table, $column) {
+	return db_get_columns($table, $column, "desc")[0];
+}
+
+// STRING STRING --> VARYING
+// Return the 'smallest' value in a column, as dictated by 'asc' ordering
+function db_get_smallest($table, $column) {
+	return db_get_columns($table, $column, "asc")[0];
+}
+
+// -------------------------------------
+
+// STRING STRING --> INTEGER
+// When passed a column of numbers, it'll increment the biggest number. Good
+// for creating IDs. If there aren't any numbers in the column, it'll choose 1.
+function db_new_id($table, $column) {
+	$biggest = db_get_biggest($table, $column);
+
+	if (is_nan($biggest)) {
+		return 1;
+	} else {
+		return $biggest + 1;
+	}
+}
+
+// -------------------------------------
+
 // STRING ARRAY ARRAY --> BOOLEAN
 // Create a table with given values to given columns.
 // First array is a list of columns (as would be provided to SQL), and the
 // second is the list of values (as would follow " values " in SQL)
 function db_insert_row($table, $variables, $values) {
-	$variables = comma_sep($variables);
-	$values = comma_sep(strings_wrap($values));
-
+	$variables = comma_sep($variables, ", ");
+	$values = comma_sep(strings_wrap($values), ", ");
 
 	return db_cmd("insert into " . $table
 			. " (".  $variables .")"

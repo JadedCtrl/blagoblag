@@ -28,8 +28,12 @@ function user_set($id, $variable, $new_value) {
 
 // NUMBER STRING STRING [STRING STRING STRING STRING STRING] --> BOOLEAN
 // Create a user of the given specification.
-function user_create($id, $name, $password, $class="Spectator",
+function user_create($name, $password, $class="spectator",
                         $full_name=NULL,  $email=NULL, $url=NULL, $bio=NULL) {
+
+	$id = db_new_id("lusers", "id");
+	$password = password_hash($password, PASSWORD_BCRYPT,
+				array('cost' => 11));
 
 	return db_insert_row("lusers",
 			array("id", "username", "hash", "class",
@@ -116,7 +120,7 @@ function user_ids() {
 // NUMBER --> ARRAY
 // Fetch an array of a user's posts (by ID)
 function user_posts($id) {
-	return db_get_cell("posts", "user", $id, "id");
+	return db_get_cells("posts", "user", $id, array('id'));
 }
 
 

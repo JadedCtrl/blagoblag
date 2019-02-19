@@ -10,10 +10,12 @@
 
 $title = "Control Panel";
 $depth = "../";
+$mark  = "admin_index";
 include "../res/lib/load.php";
 
 // --------------------------------------
 
-display_page("admin_index.twig.html", $depth, $title);
+display_page($mark, $depth, $title);
 
+echo profanity_sharpie("fuck you bitch ass shit");
 ?>

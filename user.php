@@ -10,6 +10,8 @@
 
 
 $depth = "";
+$mark  = "user";
+$title = "Death";
 include "res/lib/load.php";
 
 // -------------------------------------
@@ -26,14 +28,33 @@ if (empty($name)) {
 	general_error("It looks like that isn't a real user...");
 }
 
-// ------------------------------------
+// -------------------------------------
 
-$local_exports = array('full_name' => user_full_name($id), 'name' => $name,
-			'bio' => user_biography($id), 'email' =>
-			user_email($id), 'website' => user_website($id));
+global $user_posts; $user_posts = user_posts($id);
+global $user_post; $user_post = array();
+
+// this is used to make associative array for a user's posts, based on
+// both post ID and post title
+$push_post_data = function($post_id) {
+			$title = post_title($post_id);
+			$GLOBALS['user_post'][$post_id] = post_data($post_id);
+			$GLOBALS['user_post'][$title]   = post_data($post_id);
+		};
+
+array_map($push_post_data, $user_posts);
+
+// -----------------
+
+$local_exports = array('id' => $id, 'full_name' => unscrub(user_full_name($id)),
+			'name' => $name,
+			'bio' => unscrub(user_biography($id)),
+			'email' => user_email($id),
+			'website' => user_website($id),
+			'user_posts' => $user_posts,
+			'user_post' => $user_post);
 
 // -------------------------------------
 
-display_page("user.twig.html", $depth, $title, $local_exports);
+display_page($mark, $depth, $title, $local_exports);
 
 ?>

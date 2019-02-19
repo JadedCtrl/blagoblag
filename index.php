@@ -10,10 +10,11 @@
 
 $depth = "";
 $title = "";
+$mark  = "index";
 include "res/lib/load.php";
 
 // -------------------------------------
 
-display_page("index.twig.html", $depth, $title);
+display_page($mark, $depth, $title);
 
 ?>

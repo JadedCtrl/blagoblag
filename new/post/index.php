@@ -8,12 +8,12 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
-$depth = "";
-$title = "About";
-$mark  = "about";
-include "res/lib/load.php";
+$title = "New Post";
+$mark = "new_post_index";
+$depth = "../../";
+include "../../res/lib/load.php";
 
-// ------------------------------------
+// --------------------------------------
 
 display_page($mark, $depth, $title);
 

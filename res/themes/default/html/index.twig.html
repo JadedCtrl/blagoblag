@@ -1,1 +1,12 @@
-	<p>{{ animal }}s are SUPER RAD.</p>
+{% for post_id in posts %}
+	{% set post_author = post[post_id]['author'] %}
+	{% set post_username = user[post_author]['name'] %}
+	{% set post_full_name = user[post_author]['full_name'] %}
+
+	{% set post_title = post[post_id]['title'] %}
+	{% set post_date = post[post_id]['date'] %}
+	{% set post_desc = post[post_id]['desc'] %}
+
+	{{ include('meta_post_card.html') }}
+{% endfor %}
+

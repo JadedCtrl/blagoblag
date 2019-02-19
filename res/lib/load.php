@@ -28,11 +28,12 @@ include(root("res/lib/error.php"));
 include(root("res/lib/sterilize.php"));
 include(root("res/lib/db.php"));
 include(root("res/lib/url.php"));
+include(root("res/lib/post.php"));
 include(root("res/lib/blagoblag.php"));
 
 $loader= new Twig_Loader_Filesystem(root("res/themes/default/html"));
 $twig = new Twig_Environment($loader, ['cache' =>
-	root('cache/')]);
+	root('cache/'), 'autoescape' => false]);
 
 
 
@@ -49,17 +50,17 @@ $push_user_data = function($user_id) {
 
 array_map($push_user_data, $users);
 
-// global $posts; $posts = post_ids();
-// global $post; $post = array();
-// $post = array_map(post_data, $posts);
+global $posts; $posts = post_ids_recent();
+global $post; $post = array();
+$post = array_map("post_data", $posts);
 
 // -----------------
 
 global $twig_exports;
 $twig_exports = array('theme' => $GLOBALS['theme'],
 			'users' => $GLOBALS['users'],
-			'user' => $GLOBALS['user']);
-			//'posts' => $GLOBALS['posts'],
-			//'post' => $GLOBALS['post']);
+			'user' => $GLOBALS['user'],
+			'posts' => $GLOBALS['posts'],
+			'post' => $GLOBALS['post']);
 
 ?>

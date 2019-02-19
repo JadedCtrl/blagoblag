@@ -10,20 +10,31 @@
 
 $depth = "";
 $title = "";
+$mark  = "post";
 include "res/lib/load.php";
 
 // -------------------------------------
 
-$id = $_GET['id'];
-$text = post_text($id);
-$author = post_author($id);
-$date = post_data($id);
+$id = $_GET['id'] ?? post_name_to_id($_GET['name']);
+$name = post_title($id);
 
-$local_exports = array('id' => $id, 'text' => $text, 'author' => $author,
-			'data' => $data);
+// --------------------------------------
+
+$text = markdown(post_text($id));
+$date = post_date($id);
+$data = post_data($id);
+
+$user_id = post_author($id);
+$username = user_name($user_id);
+$full_name = user_full_name($user_id);
+
+$local_exports = array('id' => $id, 'text' => $text, 'username' => $username,
+			'user_id' => $user_id, 'full_name' => $full_name,
+			'data' => $data, 'title' => $name,
+			'date' => $date);
 
 // -------------------------------------
 
-display_page("post.twig.html", $depth, $title, $local_exports);
+display_page($mark, $depth, $title, $local_exports);
 
 ?>

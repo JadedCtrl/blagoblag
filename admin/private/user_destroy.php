@@ -22,11 +22,7 @@ $id = intval($_POST['id']);
 auth_enforce($auth_user_id, $auth_pass,
 	array("wizard", "archmage"), "destroy users");
 
-$invalid = input_enforce(array($id), array("ID"), array("user_id"));
-
-if (!empty($invalid)) {
-	input_error("Some input is invalid: " . comma_sep($invalid));
-}
+input_enforce(array($id), array("ID"), array("user_id"));
 
 // -------------------------------------
 

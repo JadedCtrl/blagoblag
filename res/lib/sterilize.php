@@ -69,8 +69,11 @@ function input_enforce($values, $names, $types) {
 		$i++;
 	}
 
+	if (!empty($stack)) {
+        	input_error("Some input is invalid: " . comma_sep($stack));
+	}
 
-	return $stack;
+	return true;
 }
 
 
@@ -87,6 +90,22 @@ function is_email($string) {
 // Return whether or not a given string is a valid url.
 function is_url($string) {
 	return filter_var($string, FILTER_VALIDATE_URL);
+}
+
+// STRING --> BOOLEAN
+// Return whether or not a string is a tweet (<250 chars)
+function is_tweet($string) {
+	if (strlen($string) <= 250 && !empty($string)) {
+		return true;
+	} else {return false; }
+}
+
+// STRING --> BOOLEAN
+// Return whether or not a string is a title (<50 chars)
+function is_title($string) {
+	if (strlen($string) <= 50 && !empty($string)) {
+		return true;
+	} else {return false; }
 }
 
 // VARYING --> BOOLEAN
@@ -138,7 +157,74 @@ function is_free_user_id($id) {
 }
 
 
+function bleep_word($word, $replacement) {
+	$word = str_replace("a", $replacement, $word);
+	$word = str_replace("e", $replacement, $word);
+	$word = str_replace("i", $replacement, $word);
+	$word = str_replace("o", $replacement, $word);
+	$word = str_replace("u", $replacement, $word);
+	$word = str_replace("y", $replacement, $word);
+
+	return $word;
+}
+
+// STRING --> STRING
+// you know how people'll write nasty stuff on bathroom stalls?
+// this is like taking a sharpie and bleeping all that out
+function profanity_sharpie($string) {
+	$string = str_ireplace(" ass ", bleep_word(" ass ", "&#9829;"),
+				$string);
+	$string = str_ireplace(" asses ", bleep_word(" asses ", "&#9829;"),
+				$string);
+	$string = str_ireplace("fuck", bleep_word("fuck", "&#9829;"), $string);
+	$string = str_ireplace("bitch", bleep_word("bitch", "&#9829;"),
+				$string);
+	$string = str_ireplace("dick", bleep_word("dick", "&#9829;"), $string);
+	$string = str_ireplace("cunt", bleep_word("cunt", "&#9829;"), $string);
+
+	$string = str_ireplace("shit", bleep_word("shit", "&#9734;"), $string);
+	$string = str_ireplace("bitch", bleep_word("bitch", "&#9734;"),
+				$string);
+
+	$string = \ConsoleTVs\Profanity\Builder::blocker($string)->filter();
+
+	return $string;
+}
+			
+
 // -------------------------------------
 
+// STRING --> STRING
+// Agressively sanitize a string -- alias for rub_a_dub_dub()
+function scrub($string) {
+	return rub_a_dub_dub($string);
+}
+
+// STRING --> STRING
+// don't forget your rubber duck <3
+function rub_a_dub_dub($string) {
+	$string = htmlentities($string, ENT_QUOTES, "UTF-8", false);
+	$string = profanity_sharpie($string);
+	return $string;
+}	
+
+// STRING --> STRING
+// Agressively sanitize a string -- alias for rub_a_dub_dub()
+function unscrub($string) {
+	return html_entity_decode($string, ENT_QUOTES);
+}
+
+
+// -------------------------------------
+
+function markdown($string) {
+	$parsedown = new Parsedown();
+	return $parsedown->text($string);
+}
+
+function markdown_inline($string) {
+	$parsedown = new Parsedown();
+	return $parsedown->line($string);
+}
 
 ?>

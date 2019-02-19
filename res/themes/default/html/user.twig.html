@@ -1,7 +1,17 @@
 <h1>{{ full_name }}</h1>
-<h2>{{ username }}</h2>
-<h3>{{ email }}</h3>
-<h3>{{ url }}</h3>
+<h3>{{ website }} &lt;{{ email }}&gt;</h3>
+<h3>({{ name }})</h3>
 <p>{{ bio }}</p>
-<ul>
-</ul>
+
+
+{% for post_id in user_posts %}
+	{% set post_id = post_id %}
+	{% set post_username = name %}
+	{% set post_user_id = id %}
+	{% set post_full_name = full_name %}
+	{% set post_title = user_post[post_id]['title'] %}
+	{% set post_date  = user_post[post_id]['date'] %}
+	{% set post_desc =  user_post[post_id]['desc'] %}
+
+	{{ include('meta_post_card.html') }}
+{% endfor %}

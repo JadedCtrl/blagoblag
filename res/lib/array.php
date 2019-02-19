@@ -33,9 +33,10 @@ function comma_sep($array, $seperator=", ") {
 // STRING STRING [ARRAY] --> ARRAY
 // Return exports for Twig-- with the required global & local exports,
 // along with any optional local ones.
-function make_exports($depth, $title, $local = array()) {
+function make_exports($depth, $title, $mark, $local = array()) {
 	$exports = $GLOBALS['twig_exports'];
 
+	$exports['mark']  = $mark;
 	$exports['depth'] = $depth;
 	$exports['title'] = $title;
 

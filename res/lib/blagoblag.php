@@ -12,12 +12,15 @@
 // STRING STRING STRING [ARRAY] --> BOOLEAN
 // Render and display a page, based on it's template-path, title, relative
 // depth, and an optional array of more Twig variable exports.
-function display_page($template, $depth, $title, $local_exports=array()) {
+function display_page($mark, $depth, $title, $local_exports=array()) {
 	echo $GLOBALS['twig']->render("head.twig.html",
-				make_exports($depth, $title, $local_exports));
-	echo $GLOBALS['twig']->render($template,
-				make_exports($depth, $title, $local_exports));
+				make_exports($depth, $title, $mark,
+						$local_exports));
+	echo $GLOBALS['twig']->render($mark . ".twig.html",
+				make_exports($depth, $title, $mark,
+						$local_exports));
 	echo $GLOBALS['twig']->render("foot.twig.html",
-				make_exports($depth, $title, $local_exports));
+				make_exports($depth, $title, $mark,
+						$local_exports));
 	return true;	
 }
