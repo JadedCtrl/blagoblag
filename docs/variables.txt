@@ -60,6 +60,8 @@ basis.
 
 USER
 --------------------
+	* id
+		The user's ID
 	* username
 		The user's username
 	* full_name
@@ -68,13 +70,15 @@ USER
 		The user's bio
 	* email
 		The user's email
+	* websit
+		The user's website
 	* posts
 		A list of the user's posts (IDs) from newest to oldest
 
 POST
 --------------------
 	* author
-		The post's author (username)
+		The post's author (ID)
 	* date
 		The post's publishing date
 	* id
