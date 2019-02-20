@@ -140,6 +140,26 @@ function is_user_id($id) {
 	}
 }
 
+// NUMBER --> BOOLEAN
+// Return whether or not a number is a post ID
+function is_post_id($id) {
+	if (post_title($id)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// NUMBER --> BOOLEAN
+// Return whether or not a string is a post name
+function is_post_title($title) {
+	if (post_title_to_id($title)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 // -------------------------------------
 
 // STRING --> BOOLEAN
@@ -156,6 +176,21 @@ function is_free_user_id($id) {
 		return true; } else { return false; }
 }
 
+// STRING --> BOOLEAN
+// Return whether or not a given string is a valid (unused) post title 
+function is_free_post_title($title) {
+	if (!is_post_title($title) && is_ne_string($title)) {
+		return true; } else { return false; }
+}
+
+// STRING --> BOOLEAN
+// Return whether or not a given number is a valid (unused) psot ID
+function is_free_post_id($id) {
+	if (!is_post_id($id) && is_int($id)) {
+		return true; } else { return false; }
+}
+
+// -------------------------------------
 
 function bleep_word($word, $replacement) {
 	$word = str_replace("a", $replacement, $word);

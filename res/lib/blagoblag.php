@@ -16,6 +16,9 @@ function display_page($mark, $depth, $title, $local_exports=array()) {
 	echo $GLOBALS['twig']->render("head.twig.html",
 				make_exports($depth, $title, $mark,
 						$local_exports));
+	echo $GLOBALS['twig']->render("navbar.twig.html",
+				make_exports($depth, $title, $mark,
+						$local_exports));
 	echo $GLOBALS['twig']->render($mark . ".twig.html",
 				make_exports($depth, $title, $mark,
 						$local_exports));

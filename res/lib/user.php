@@ -142,6 +142,49 @@ function user_data($id) {
 // -------------------------------------
 
 
+// NUMBER --> NUMBER
+// Generate a new login-token and associate it with the user's account.
+// Returns the token number.
+function user_token_create($id) {
+	$token = rand(0, 5000000);
+	db_set_cell("lusers", "id", $id, "token", rand(0, 5000000));
+	return $token;	
+}
+
+// NUMBER NUMBER --> BOOLEAN
+// Return whether or not a token is valid for a certain user account
+function user_token_validate($id, $token) {
+	$valid_token = db_get_cell("lusers", "id", $id, "token");
+
+	if ($token == $valid_token) {
+		return true;
+
+	} else {
+		return false;
+	}
+}
+
+
+// -------------------------------------
+
+
+// NUMBER --> NIL
+// Log a user in-- create a token, then make a cookie with said token.
+function user_log_in($id) {
+	$token = user_token_create($id);
+	setcookie("token", $token, 2628000);
+	setcookie("id", $id, 2628000);
+}
+
+function logged() {
+	if (user_token_validate($id, $_COOKIE['token'])) {
+		return $id;
+	} else {
+		return "no";
+	}
+}
+
+// -------------------------------------
 // NUMBER STRING --> BOOLEAN
 // Return whether or not a given password is valid.
 function user_valid_password($id, $password) {

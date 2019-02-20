@@ -1,0 +1,7 @@
+<ul id="user_list">
+	{% for user_id in users %}
+	<a href="{{ depth }}u/index.php?id={{ user_id }}">
+		<li class="user_name">{{ user[user_id]['full_name'] }}</li>
+	</a>
+	{% endfor %}
+</ul>

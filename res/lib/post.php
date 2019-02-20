@@ -47,8 +47,7 @@ function post_delete($id) {
 
 // -------------------------------------
 
-
-function post_name_to_id($name) {
+function post_title_to_id($name) {
 	return db_get_cell("posts", "title", string_wrap($name), "id");
 }
 

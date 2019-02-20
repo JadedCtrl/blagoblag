@@ -41,6 +41,8 @@ $twig = new Twig_Environment($loader, ['cache' =>
 // global variable declaration
 global $users; $users = user_ids();
 global $user; $user = array();
+global $posts; $posts = post_ids_recent();
+global $post; $post = array();
 
 $push_user_data = function($user_id) {
 			$user_name = user_name($user_id);
@@ -48,11 +50,14 @@ $push_user_data = function($user_id) {
 			$GLOBALS['user'][$user_name] = user_data($user_id);
 		  };
 
-array_map($push_user_data, $users);
+$push_post_data = function($post_id) {
+			$post_title = post_title($post_id);
+			$GLOBALS['post'][$post_id] = post_data($post_id);
+			$GLOBALS['post'][$post_title] = post_data($post_id);
+		  };
 
-global $posts; $posts = post_ids_recent();
-global $post; $post = array();
-$post = array_map("post_data", $posts);
+array_map($push_user_data, $users);
+array_map($push_post_data, $posts);
 
 // -----------------
 
@@ -61,6 +66,7 @@ $twig_exports = array('theme' => $GLOBALS['theme'],
 			'users' => $GLOBALS['users'],
 			'user' => $GLOBALS['user'],
 			'posts' => $GLOBALS['posts'],
-			'post' => $GLOBALS['post']);
+			'post' => $GLOBALS['post'],
+			'instance_title' => $GLOBALS['instance_title']);
 
 ?>

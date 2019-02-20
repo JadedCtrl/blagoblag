@@ -9,10 +9,10 @@
    GNU Affero General Public License for more details. */
 
 
-$depth = "";
-$mark  = "user";
+$depth = "../";
+$mark  = "u_index";
 $title = "Death";
-include "res/lib/load.php";
+include "../res/lib/load.php";
 
 // -------------------------------------
 
@@ -21,11 +21,10 @@ $name = user_name($id);
 
 // -------------------------------------
 
-if (!is_user_id($id)) {
+if (empty($_GET['id']) && empty($_GET['name'])) {
+	root_redirect('u/list/');
+} else if (!is_user_id($id) && empty($name)) {
 	general_error("It looks like that isn't a real user.");
-}
-if (empty($name)) {
-	general_error("It looks like that isn't a real user...");
 }
 
 // -------------------------------------
@@ -45,11 +44,12 @@ array_map($push_post_data, $user_posts);
 
 // -----------------
 
-$local_exports = array('id' => $id, 'full_name' => unscrub(user_full_name($id)),
-			'name' => $name,
-			'bio' => unscrub(user_biography($id)),
-			'email' => user_email($id),
-			'website' => user_website($id),
+$local_exports = array('user_id' => $id,
+			'user_full_name' => unscrub(user_full_name($id)),
+			'user_name' => $name,
+			'usr_bio' => unscrub(user_biography($id)),
+			'user_email' => user_email($id),
+			'user_website' => user_website($id),
 			'user_posts' => $user_posts,
 			'user_post' => $user_post);
 

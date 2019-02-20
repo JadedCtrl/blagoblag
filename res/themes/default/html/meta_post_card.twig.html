@@ -1,0 +1,15 @@
+<ul class="post_card">
+	<li>
+		<a href="{{ depth }}p/index.php?id={{ post_id }}">
+			{{ post[post_id]['title'] }}
+		</a>
+	</li>
+	{% set author = post[post_id]['author'] %}
+	<li>
+		<a href="{{ depth }}u/index.php?id={{ author }}">
+			{{ user[author]['full_name'] }}
+		</a>
+	</li>
+	<li>{{ post[post_id]['date'] }}</li>
+	<li><p>{{ post[post_id]['desc'] }}</p></li>
+</ul>

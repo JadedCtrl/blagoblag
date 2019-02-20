@@ -8,13 +8,17 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
-$title = "New Post";
-$mark = "new_post_index";
+$title = "Control Panel";
 $depth = "../../";
+$mark  = "u_new_index";
 include "../../res/lib/load.php";
 
 // --------------------------------------
 
-display_page($mark, $depth, $title);
+if ($GLOBALS['registration'] == true) {
+	display_page($mark, $depth, $title);
+} else {
+	general_error("Sorry, registration's disabled on this server!");
+}
 
 ?>

@@ -1,0 +1,11 @@
+<h1>{{ user_full_name }}</h1>
+<h3>{{ user_website }} &lt;{{ user_email }}&gt;</h3>
+<h3>({{ user_name }})</h3>
+<p>{{ user_bio }}</p>
+
+{% for post_id in user_posts %}
+	{% set post_id = post_id %}
+
+	{{ include ('meta_post_card.twig.html') }}
+{% endfor %}
+</ul>
