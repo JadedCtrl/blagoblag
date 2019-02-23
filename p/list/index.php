@@ -15,6 +15,12 @@ include "../../res/lib/load.php";
 
 // -------------------------------------
 
-display_page($mark, $depth, $title);
+$order = $_GET['order'] ?? "desc";
+
+$local_exports = array('order' => $order);
+
+// -------------------------------------
+
+display_page($mark, $depth, $title, $local_exports);
 
 ?>

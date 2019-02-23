@@ -1,6 +1,7 @@
 { "require":
 	{
 		"twig/twig": "1.*",
-		"falseclock/dbd-php": "1.*"
+		"erusev/parsedown": "*.*",
+		"consoletvs/profanity": "*.*"
 	}
 }

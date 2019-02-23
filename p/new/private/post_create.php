@@ -11,18 +11,14 @@
 $depth = "../../../";
 include "../../../res/lib/load.php";
 
-$auth_user = scrub($_POST['auth_user']);
-$auth_pass = scrub($_POST['auth_pass']);
-$auth_id = user_name_to_id($auth_user);
-
 $title = scrub($_POST['title']);
 $desc = scrub($_POST['desc']);
 $text = scrub($_POST['text']);
 
 // -------------------------------------
 
-auth_enforce($auth_id, $auth_pass,
-	array("contributor", "wizard", "archmage"), "make posts");
+auth_enforce(user_logged_in(),
+		array("contributor", "wizard", "archmage"), "make posts");
 
 input_enforce(array($title, $desc, $text),
 		array("Title", "Summary", "Text"),
@@ -30,9 +26,8 @@ input_enforce(array($title, $desc, $text),
 
 // -------------------------------------
 
-echo $auth_user . $auth_user_id;
-post_create($title, $auth_id, $desc, $text);
+post_create($title, user_logged_in(), $desc, $text);
 
-root_redirect("post.php?name=" . $title);
+root_redirect($GLOBALS['post_prefix_title'] . $title);
 
 ?>

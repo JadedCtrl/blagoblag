@@ -1,33 +1,89 @@
-/* The color-combo we're using:
- * https://www.colorcombos.com/color-schemes/116/ColorCombo116.html */
 body {
-	background-color: #CECFCE;
+	background-color: #FFFFFF;
 	font-family: sans-serif;
 	font-size: 17px;
 	color: #073642;
 	width: 100%;
 }
 
+p {
+	max-width: 700px;
+	padding-left: 10%;
+}
+
+form {
+	background-color: #EFEFEF;
+	margin: 10px;
+	border-radius: 5px;
+	max-width: 900px;
+	padding: 10px;
+}
+
+form label {
+	width: 100px;
+	display: inline-block;
+	font-weight: bold;
+	align: left;
+}
+
+.button {
+	background-color: #993232;
+	color: #FFFFFF;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.button a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.button:hover {
+	background-color: #AFB170;
+}
+
+
+
+/* -------------------------------------
+ * navbar
+ * -----------------------------------*/
 nav {
-	background-color: #84596B;
+	background-color: #993232;
+	color: #FFFFFF;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 }
 
 nav ul {
-	background-color: #84596B;
+	background-color: inherit;
+	color: inherit;
 	overflow: hidden;
-	color: #FFFFFF;
 }
 
 nav li {
+	background-color: inherit;
+	color: inherit;
 	display: block;
 	margin-left: 20px;
 	margin-right: 20px;
-	background-color: #84596B;
 	float: left;
 	padding: 10px;
+}
+
+nav li a {
+	background-color: inherit;
+	color: inherit;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+nav li:hover {
+	background-color: #AFB170;
+}
+
+.right {
+	float: right;
 }
 
 #star {
@@ -43,32 +99,38 @@ nav li {
 	background-color: inherit;
 }
 
-nav li:hover {
-	background-color: #AFB170;
-}
-
-nav li a {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-
-.right {
-	float: right;
-}
-
-p {
-	max-width: 700px;
-	padding-left: 10%;
-}
 
 
-.post_card {
-	height: 200px;
-	display: inline-block;
-	overflow: hidden;
-	max-width: 200px;
-	border-style: solid;
+/* -------------------------------------
+ * meta_post_card_*
+ * -----------------------------------*/
+
+.card {
+	float: left;
+	max-width: 370px;
+	border-style: dotted;
 	border-width: 2px;
 	border-color: #B58AA5;
 	border-radius: 5px;
+	margin: 10px;
+}
+
+.card p {
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-bottom: 30px;
+}
+
+.title {
+	text-align: center;
+}
+
+.date {
+	font-size: 17px;
+	text-align: center;
+}
+
+.author {
+	font-size: 15px;
+	text-align: center;
 }

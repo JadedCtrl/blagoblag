@@ -1,9 +1,23 @@
-<h1>{{ post_title }}</h1>
-<h2>By
-	<a href="{{ depth }}u/index.php?name={{ user[post_author]['name'] }}">
+<article>
+<h1 class="title">{{ post_title }}</h1>
+<h2 class="author">By
+	<a href="{{ depth }}{{ user_prefix_name}}{{ user[post_author]['name'] }}">
 		{{ user[post_author]['full_name'] }}
 	</a>
 </h2>
 
-<h3>{{ post_date }}</h3>
-<p>{{ post_text }}</p>
+<h3 class="date">{{ post_date }} - {{ post_id }}</h3>
+
+{% set logged_class = user[logged_id]['class'] %}
+{% if (post_author == logged_id) or (logged_class == "archmage")
+	or (logged_class == "wizard") %}
+<p>
+<a class="button" href="edit/?id={{ post_id }}">Edit post</a>
+<a class="button" href="oust/?id={{ post_id }}">Delete post</a>
+</p>
+{% endif %}
+
+<!-- ====================================================================== -->
+
+<div class="text">{{ post_text }}</div>
+</article>

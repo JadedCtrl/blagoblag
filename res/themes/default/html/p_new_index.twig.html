@@ -1,17 +1,5 @@
 <section id="creation">
 	<form id="post_creation" action="private/post_create.php" method="post">
-
-		<section class="authentication">
-		<p><label>Username</label>
-			<input name="auth_user" type="text" />
-		</p>
-		<p><label>Password</label>
-			<input name="auth_pass" type="password">
-		</p>	
-		</section>
-		
-		<hr />
-
 		<section class="post_metadata">
 		<p><label>Title</label><input name="title" type="text" /></p>
 		<p><label>Desc</label><input name="desc" type="text" /></p>
@@ -23,6 +11,8 @@
 			<textarea name="text" rows="20" cols="80"></textarea>
 		</section>
 
-		<p><input type="submit" /></p>
+		<hr />
+
+		<p><input class="button" type="submit" /></p>
 	</form>
 </section>

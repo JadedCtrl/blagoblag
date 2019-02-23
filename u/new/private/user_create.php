@@ -20,10 +20,6 @@ $pass	= scrub($_POST['password']);
 
 // -------------------------------------
 
-if ($GLOBALS['registration'] != true) {
-	general_error("Sorry, registration's disabled on this server!");
-}
-
 input_enforce(array($name, $full, $bio, $email, $url, $pass),
 		array("Username", "Full name", "Biography", "E-mail",
 		  	"URL", "Password"),
@@ -32,8 +28,19 @@ input_enforce(array($name, $full, $bio, $email, $url, $pass),
 
 // -------------------------------------
 
-user_create($name, $pass, "contributor", $full, $email, $url, $bio);
-
-root_redirect("u/index.php?name=" . $name);
+switch (1) {
+	case (user_logged_in() != false):
+		general_error("You can't make an account… while logged in to
+				another account. LOL");
+		break;
+	case ($GLOBALS['registration'] != true):
+		general_error("Sorry, registration's disabled on this server!");
+		break;
+	default:
+		user_create($name, $pass, "contributor", $full, $email, $url,
+				$bio);
+		root_redirect("u/index.php?name=" . $name);
+		break;
+}
 
 ?>

@@ -131,64 +131,13 @@ function user_posts($id) {
 // Return an array filled with all of a user's relevant data.
 function user_data($id) {
 	return array('full_name' => user_full_name($id),
+			'first_name' => word_nth(user_full_name($id), 0),
 			'name' => user_name($id),
 			'bio' => user_biography($id),
+			'class' => user_class($id),
 			'email' => user_email($id),
 			'website' => user_website($id),
 			'posts' => user_posts($id));
 }
 			
-
-// -------------------------------------
-
-
-// NUMBER --> NUMBER
-// Generate a new login-token and associate it with the user's account.
-// Returns the token number.
-function user_token_create($id) {
-	$token = rand(0, 5000000);
-	db_set_cell("lusers", "id", $id, "token", rand(0, 5000000));
-	return $token;	
-}
-
-// NUMBER NUMBER --> BOOLEAN
-// Return whether or not a token is valid for a certain user account
-function user_token_validate($id, $token) {
-	$valid_token = db_get_cell("lusers", "id", $id, "token");
-
-	if ($token == $valid_token) {
-		return true;
-
-	} else {
-		return false;
-	}
-}
-
-
-// -------------------------------------
-
-
-// NUMBER --> NIL
-// Log a user in-- create a token, then make a cookie with said token.
-function user_log_in($id) {
-	$token = user_token_create($id);
-	setcookie("token", $token, 2628000);
-	setcookie("id", $id, 2628000);
-}
-
-function logged() {
-	if (user_token_validate($id, $_COOKIE['token'])) {
-		return $id;
-	} else {
-		return "no";
-	}
-}
-
-// -------------------------------------
-// NUMBER STRING --> BOOLEAN
-// Return whether or not a given password is valid.
-function user_valid_password($id, $password) {
-	return password_verify($password, user_get($id, "hash"));
-}
-
 ?>

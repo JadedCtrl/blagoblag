@@ -12,9 +12,9 @@
 // NUMBER STRING ARRAY [STRING] --> NIL
 // Make sure a user is both authenticated *and* permitted to do a given task,
 // aka in the right login-class.
-function auth_enforce($id, $password, $permitted, $message="do that") {
-	if (!user_valid_password($id, $password)) {
-		input_error("Sorry, your user-name or password is wrong.");
+function auth_enforce($id, $permitted, $message="do that") {
+	if (!user_logged_in()) {
+		input_error("Sorry, you're not logged in!");
 	}
 
 	$class = user_class($id);
@@ -22,6 +22,7 @@ function auth_enforce($id, $password, $permitted, $message="do that") {
 		perm_error("Mate, only a " . comma_sep($permitted, " or ")
 			. " can " . $message . "-- you hecking "
 			. $class . "!");
+		return false;
 	}
 }
 

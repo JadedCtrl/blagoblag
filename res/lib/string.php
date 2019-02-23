@@ -25,4 +25,11 @@ function string_wrap($value) {
 function strings_wrap($array) {
 	return array_map("string_wrap", $array);
 }
+
+// STRING NUMBER --> STRING
+// Return the nth word of a given string (space-seperated)
+function word_nth($string, $number) {
+	return explode(" ", $string)[$number];
+}
+
 ?>

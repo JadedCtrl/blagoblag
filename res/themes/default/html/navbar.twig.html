@@ -10,8 +10,22 @@
 		<li id="nav_users">
 			<a href="{{ depth }}u/list/">Users</a>
 		</li>
+		{% if logged_in %}
+		<li class="right" id="nav_logout">
+			<a href="{{ depth }}u/out/">Logout</a>
+		</li>
+		<li class="right" id="nav_user">
+			<a href="{{ depth }}{{ user_prefix_id}}{{ logged_id }}">
+				{{ user[logged_id]['first_name'] }}
+			</a>
+		</li>
+		{% else %}
+		<li class="right" id="nav_login">
+			<a href="{{ depth }}u/old/">Login</a>
+		</li>
 		<li class="right" id="nav_register">
 			<a href="{{ depth }}u/new/">Register</a>
 		</li>
+		{% endif %}
 	</ul>	
 </nav>

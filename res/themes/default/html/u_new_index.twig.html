@@ -1,15 +1,24 @@
 <form id="user_creation" action="private/user_create.php" method="post">
-	<p><label>Username</label><input name="name" type="text" /></p>
+	<p><label>Username</label> <input name="username" type="text" /></p>
 	<p><label>Password</label> <input name="password" type="password" /></p>
+	<p><label>Repeat Password</label>
+		<input name="password_repeat" type="password" /></p>
 
 	<hr />
 
-	<p><label>Full Name</label><input name="full_name" type="text"/> </p>
-	<p><label>Biography</label><input name="bio" type="text" /> </p>
-	<p><label>E-mail</label><input name="email" type="email" /></p>
-	<p><label>Website</label><input name="url" type="url" /></p>
+	<p><label>Full Name</label><input name="full_name" type="text" /></p>
+	<p><label>E-mail</label>
+		<input name="email" type="email"
+			placeholder="user@domain.tld" /></p>
+	<p><label>Website</label>
+		<input name="url" type="url"
+			placeholder="https://domain.tld" /></p>
+	<p><label>Biography</label>
+		<textarea cols=80 rows=5 name="bio"
+			placeholder="Say something about yourself!"></textarea>
+	</p>
 
 	<hr />
 
-	<p><input type="submit" /></p>
+	<p><input class="button" type="submit" /></p>
 </form>

@@ -11,6 +11,7 @@
 
 // PATH --> PATH
 // Take a path from root and turn it into a relative path.
+error_reporting(0);
 function root($path) {
 	return $GLOBALS['depth'] . $path;
 }
@@ -30,12 +31,24 @@ include(root("res/lib/db.php"));
 include(root("res/lib/url.php"));
 include(root("res/lib/post.php"));
 include(root("res/lib/blagoblag.php"));
+include(root("res/lib/token.php"));
 
 $loader= new Twig_Loader_Filesystem(root("res/themes/default/html"));
 $twig = new Twig_Environment($loader, ['cache' =>
 	root('cache/'), 'autoescape' => false]);
 
+// -------------------------------------
+// authentication
 
+global $logged_id;
+global $logged_in; $logged_in = false;
+
+$test_id = user_logged_in();
+
+$logged_id = $test_id ?? 0;
+if ($logged_id != 0) {
+	$logged_in = true;
+}
 
 // -------------------------------------
 // global variable declaration
@@ -67,6 +80,12 @@ $twig_exports = array('theme' => $GLOBALS['theme'],
 			'user' => $GLOBALS['user'],
 			'posts' => $GLOBALS['posts'],
 			'post' => $GLOBALS['post'],
-			'instance_title' => $GLOBALS['instance_title']);
+			'user_prefix_id' => $GLOBALS['user_prefix_id'],
+			'user_prefix_name' => $GLOBALS['user_prefix_name'],
+			'post_prefix_id' => $GLOBALS['post_prefix_id'],
+			'post_prefix_name' => $GLOBALS['post_prefix_name'],
+			'instance_title' => $GLOBALS['instance_title'],
+			'logged_id' => $GLOBALS['logged_id'],
+			'logged_in' => $GLOBALS['logged_in']);
 
 ?>

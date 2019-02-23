@@ -21,6 +21,7 @@ PRE-REQUISITES
 ----------------------------------------
 	* PHP 7.0
 	* Webserver with CGI enabled
+	* Composer
 	* A paper-clip and soldering-iron
 	* Also a lighter
 
@@ -30,9 +31,16 @@ PRE-REQUISITES
 INSTALLATION
 ----------------------------------------
 Drop Blagoblag in any directory on your webserver, then create an SQL
-database for Blagoblag. Make sure to make a "config.ini" file (from 
-"config.ini.example")-- at the minimum, you need to configure the SQL
-connection settings.
+database for Blagoblag-- UTF-8 character encoding, preferably.
+
+Then, make a "config.ini" file (from "config.ini.example")-- at the
+minimum, you need to configure the SQL connection settings.
+
+After that, just run "composer intall", then you should be running!
+
+As for setup, you should make your own user-account, then use the "root"
+account to elevate your account to archmage (highest login class)-- after
+that, delete the "root" account. :)
 
 
 

@@ -15,10 +15,17 @@ include "../../res/lib/load.php";
 
 // --------------------------------------
 
-if ($GLOBALS['registration'] == true) {
-	display_page($mark, $depth, $title);
-} else {
-	general_error("Sorry, registration's disabled on this server!");
+switch (1) {
+	case (user_logged_in() != false):
+		general_error("You can't make an account… while using another
+				account. LOL");
+		break;
+	case ($GLOBALS['registration'] == true):
+		display_page($mark, $depth, $title);
+		break;
+	default:
+		general_error("Sorry, registration's disabled on this server!");
+		break;
 }
 
 ?>

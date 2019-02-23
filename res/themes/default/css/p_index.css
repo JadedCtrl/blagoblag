@@ -1,0 +1,11 @@
+article {
+	max-width: 900px;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: #B58AA5;
+	border-radius: 5px;
+
+}
+.title .author .date {
+	text-align: center;
+}

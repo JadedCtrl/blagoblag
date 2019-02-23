@@ -1,0 +1,15 @@
+.user_info {
+	max-width: 900px;
+	border-width: 2px;
+	border-style: dotted;
+	border-color: #B58AA5;
+	border-radius: 5px;
+}
+
+.text {
+	margin: 20px;
+}
+
+.title .author .date {
+	text-align: center;
+}

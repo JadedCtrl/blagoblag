@@ -1,19 +1,9 @@
-<table>
-	{% for id in posts %}
-	<tr>
-		<td>
-			<a href="{{ depth }}p/index.php?id={{ id }}">
-				{{ post[id]['title'] }}
-			</a>
-		</td>
-		<td>
-			<a href="{{ depth }}u/?id={{ post[id]['author'] }}">
-				{{ user[post[id]['author']]['full_name'] }}
-			</a>
-		</td>
-		<td>
-			{{ post[id]['date'] }}
-		</td>
-	</tr>
-	{% endfor %}
-</table>
+{% if logged_in == true %}
+<p><a class="button" href="new">New post</a></p>
+{% endif %}
+
+{% for post_id in posts %}
+	{% set post_id = post_id %}
+	{{ include('meta_post_card_mini.twig.html') }}
+{% endfor %}
+

@@ -1,0 +1,49 @@
+<form id="user_redaction" action="private/user_edit.php?id={{ user_id }}"
+	method="post">
+	<p><label>Full Name</label><input name="full_name" type="text"
+		value="{{ user_full_name }}" /> </p>
+	<p><label>E-mail</label><input name="email" type="email" 
+		value="{{ user_email }}" /></p>
+	<p><label>Website</label><input name="url" type="url" 
+		value="{{ user_website }}" /></p>
+	<p><label>Biography</label>
+		<textarea cols=80 rows=5 name="bio">{{ user_bio }}</textarea>
+	</p>
+
+	<hr />
+
+	{% if user[logged_id]['class'] == "archmage" %}
+	<p><label>Login Group</label>
+		<select name="login">
+			<option value="{{ user[user_id]['class'] }}">
+				Current</option>
+			<option value="contributor">Contributor</option>
+			<option value="spectator">Spectator</option>
+			<option value="wizard">Wizard</option>
+			<option value="archmage">Archmage</option>
+		</select>
+	</p>
+	{% endif %}
+
+
+	<p><input class="button" type="submit" /></p>
+</form>
+
+{% if user_id == logged_id %}
+<form id="user_new_password" action="private/new_password.php" method="post">
+	<p><label>Old Password</label>
+		<input name="password" type="password" /></p>
+
+	<hr />
+
+	<p><label>New Password</label>
+		<input name="new_password" type="password" /></p>
+
+	<p><label>Repeat Password</label>
+		<input name="new_password_repeat" type="password" /></p>
+
+	<hr />
+
+	<p><input class="button" type="submit" /></p>
+</form>
+{% endif %}

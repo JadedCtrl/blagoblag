@@ -7,6 +7,9 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU Affero General Public License for more details. */
 
+/* note: should really make variable-naming more SQL-adherent and consistent
+ *       also rethink a lot fo these abstractions
+ *       also use prepared statements (as in http://bobby-tables.com/php) */
 
 // -------------------------------------
 // connection setup
@@ -115,7 +118,13 @@ function db_get_rows($table, $identifier, $value) {
 // Return the value of a specific column in a given row, identified by an
 // 'identifier' column set to the given value
 function db_get_cell($table, $identifier, $value, $cell) {
-	return db_get_rows($table, $identifier, $value)[0][$cell];
+	$results = db_get_rows($table, $identifier, $value);
+
+	if (count($results) > 0) {
+		return $results[0][$cell];
+	} else {
+		return false;
+	}
 }
 
 // !!!
@@ -143,7 +152,7 @@ function db_set_cell($table, $identifier, $value, $cell, $new_value) {
 
 	return db_cmd("update " . $table 
 			. " set " . $cell . " = " . $new_value
-			. " where " . $identifier . " = " . $value) . ";";
+			. " where " . $identifier . " = " . $value . ";");
 }
 
 // -------------------------------------

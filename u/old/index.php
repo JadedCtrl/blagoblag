@@ -15,6 +15,14 @@ include "../../res/lib/load.php";
 
 // --------------------------------------
 
-display_page($mark, $depth, $title);
+switch (1) {
+	case (user_logged_in() != false):
+		general_error("You've already done that, you know. Log in, I
+				mean. You OK there, friend?");
+		break;
+	default:	
+		display_page($mark, $depth, $title);
+}
+
 
 ?>

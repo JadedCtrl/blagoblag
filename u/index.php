@@ -47,7 +47,7 @@ array_map($push_post_data, $user_posts);
 $local_exports = array('user_id' => $id,
 			'user_full_name' => unscrub(user_full_name($id)),
 			'user_name' => $name,
-			'usr_bio' => unscrub(user_biography($id)),
+			'user_bio' => unscrub(user_biography($id)),
 			'user_email' => user_email($id),
 			'user_website' => user_website($id),
 			'user_posts' => $user_posts,
