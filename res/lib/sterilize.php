@@ -24,6 +24,7 @@ function auth_enforce($id, $permitted, $message="do that") {
 			. $class . "!");
 		return false;
 	}
+	return true;
 }
 
 // ARRAY ARRAY ARRAY --> ARRAY

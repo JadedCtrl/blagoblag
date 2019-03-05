@@ -42,7 +42,7 @@ if ($class != false) {
 	$auth = auth_enforce($cur_id, array("archmage"),
 			"edit other people's classes");
 	if ($auth != false) {
-		$user_set($edit_id, "class", $class);
+		user_set($edit_id, "class", $class);
 	}
 }
 
@@ -50,5 +50,7 @@ user_set($edit_id, "full_name", $full);
 user_set($edit_id, "biography", $bio);
 user_set($edit_id, "email", $email);
 user_set($edit_id, "website", $url);
+
+root_redirect($GLOBALS['user_prefix_id'] . $edit_id);
 
 ?>

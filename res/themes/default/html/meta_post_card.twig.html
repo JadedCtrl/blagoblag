@@ -1,13 +1,13 @@
 <article class="card">
 	<h2 class="title">
-		<a href="{{ depth }}p/index.php?id={{ post_id }}">
+		<a href="{{ depth }}{{ post_prefix_id }}{{ post_id }}">
 			{{ post[post_id]['title'] }}
 		</a>
 	</h2>
 	{% set author = post[post_id]['author'] %}
 	<h3 class="date">{{ post[post_id]['date'] }}</h3>
 	<h4 class="author">
-		<a href="{{ depth }}u/index.php?id={{ author }}">
+		<a href="{{ depth}}{{ user_prefix_id }}{{ author }}">
 			{{ user[author]['full_name'] }}
 		</a>
 	</h4>

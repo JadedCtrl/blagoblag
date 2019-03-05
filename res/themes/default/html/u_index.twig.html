@@ -1,7 +1,7 @@
 <article class="user_info">
 <h1 class="title">{{ user_full_name }}</h1>
 <h3 class="author">{{ user_website }} &lt;{{ user_email }}&gt;</h3>
-<h3 class="date">({{ user_name }})</h3>
+<h3>({{ user_name }} - {{ user_class }})</h3>
 <div class="text">{{ user_bio }}</div>
 </article>
 
@@ -9,7 +9,7 @@
 {% if (logged_id == user_id) or (user[logged_id]['class'] == "archmage")
 	or (user[logged_id]['class'] == "wizard") %}
 <a class="button" href="edit/?id={{ user_id }}">Edit profile</a>
-<a class="button" href="delete">Delete user</a>
+<a class="button" href="oust/?id={{ user_id }}">Delete user</a>
 {% endif %}
 </p>
 

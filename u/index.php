@@ -50,6 +50,7 @@ $local_exports = array('user_id' => $id,
 			'user_bio' => unscrub(user_biography($id)),
 			'user_email' => user_email($id),
 			'user_website' => user_website($id),
+			'user_class' => user_class($id),
 			'user_posts' => $user_posts,
 			'user_post' => $user_post);
 
